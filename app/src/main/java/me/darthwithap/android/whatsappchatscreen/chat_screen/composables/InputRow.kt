@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -29,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -54,9 +54,12 @@ fun InputRow(
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Column {
+        Column(
+            modifier = Modifier.fillMaxWidth(0.8f)
+        ) {
             if (isReplyingToMessage) {
                 ReplyBox(
+                    modifier = Modifier.fillMaxWidth(),
                     message = replyMessage,
                     isEditing = true,
                     name = replyPerson,
@@ -83,7 +86,7 @@ fun InputRow(
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Text
                 ),
-                textStyle = TextStyle(fontSize = 18.sp),
+                textStyle = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Medium),
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = Color.LightGray,
                     unfocusedContainerColor = Color.LightGray,
@@ -101,11 +104,9 @@ fun InputRow(
                         IconButton(onClick = {}) {
                             Icon(imageVector = Icons.Default.Add, contentDescription = null)
                         }
-                        Spacer(Modifier.width(4.dp))
                         IconButton(onClick = {}) {
                             Icon(painterResource(R.drawable.clip), contentDescription = null)
                         }
-                        Spacer(Modifier.width(4.dp))
                         IconButton(onClick = {}) {
                             Icon(painterResource(R.drawable.camera), contentDescription = null)
                         }
@@ -122,11 +123,12 @@ fun InputRow(
         IconButton(
             onClick = { onMessageSend(isReplyingToMessage, replyMessage, replyPerson) },
             modifier = Modifier
+                .weight(1f)
                 .size(48.dp)
                 .clip(CircleShape)
                 .background(darkGreen)
-                .fillMaxHeight()
                 .padding(end = 2.dp)
+                .align(Alignment.Bottom)
         ) {
             Icon(painterResource(R.drawable.send), contentDescription = null)
         }
